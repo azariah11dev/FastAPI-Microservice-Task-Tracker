@@ -1,0 +1,52 @@
+[
+  {
+    "username": "pixelpilot",
+    "email": "pixelpilot01@example.com",
+    "password": "Aster#4821"
+  },
+  {
+    "username": "nova_coder",
+    "email": "nova.coder@example.com",
+    "password": "River!913"
+  },
+  {
+    "username": "atlasdev",
+    "email": "atlas.dev@example.com",
+    "password": "Forge$274"
+  },
+  {
+    "username": "lunarbyte",
+    "email": "lunar.byte@example.com",
+    "password": "Orbit@665"
+  },
+  {
+    "username": "echo_matrix",
+    "email": "echo.matrix@example.com",
+    "password": "Vertex*308"
+  },
+  {
+    "username": "crimsonfox",
+    "email": "crimson.fox@example.com",
+    "password": "Cedar%552"
+  },
+  {
+    "username": "quantspark",
+    "email": "quant.spark@example.com",
+    "password": "Pulse&741"
+  },
+  {
+    "username": "emberlogic",
+    "email": "ember.logic@example.com",
+    "password": "Nimbus?196"
+  },
+  {
+    "username": "vectorwave",
+    "email": "vector.wave@example.com",
+    "password": "Cipher+824"
+  },
+  {
+    "username": "zenithlabs",
+    "email": "zenith.labs@example.com",
+    "password": "Harbor=437"
+  }
+]

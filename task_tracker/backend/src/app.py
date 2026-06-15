@@ -5,6 +5,7 @@ from contextlib import asynccontextmanager
 
 from models.database import create_db_and_tables
 from endpoints.post_endpoints.user_auth import user_auth_router
+from endpoints.post_endpoints.query_builder import query_router
 
 
 @asynccontextmanager
@@ -40,12 +41,18 @@ def root():
     return {
         "message": "Welcome to Task Forge API!",
         "endpoints": {
-            "POST": [
-                "/auth/login - User login",
-                "/auth/register - User registration",
-                "/auth/assign_role - Assign role to user (admin only)"
-            ]
+            "POST": {
+                "User Management": [
+                    "/auth/login - User login",
+                    "/auth/register - User registration",
+                    "/auth/assign_role - Assign role to user (admin only)"
+                ],
+                "Query Builder": [
+                    "/query_builder/analyze_tasks - Analyze tasks and generate search queries"
+                ]
+            }
         }
     }
 
 app.include_router(user_auth_router)
+app.include_router(query_router)
