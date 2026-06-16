@@ -13,7 +13,7 @@ async def analyze_tasks(payload: QueryBuilderRequest):
         initiate_query = Query(request=payload.tasks)
         model = localModel()
 
-        build_query = initiate_query.generate_queries(model=model)
+        build_query = await initiate_query.generate_queries(model=model)
         raw_results = await initiate_query.web_search(build_query)
         model_interpretation = model.format_response(format_spec=raw_results)
 

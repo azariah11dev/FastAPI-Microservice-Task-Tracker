@@ -140,12 +140,59 @@ class Query:
 
     def __init__(self, request: list[str]):
         self.request = request
+    
+    async def generate_queries(self, model) -> dict[str, list[str]]:
+        queries = {}
 
-    async def _fetch(self, client, query: str):
-        """Fetch a single DuckDuckGo HTML page."""
-        url = "https://duckduckgo.com/html/"
-        r = await client.get(url, params={"q": query})
-        return query, r.text
+        for task in self.request:
+            # 1. Model predicts category
+            category = model.classify_task(task.lower())
+
+            # 2. Get templates for that category
+            templates = self.SEARCH_TEMPLATES.get(category, [])
+
+            # 3. Format queries (as a list)
+            formatted = [template.format(task=task) for template in templates]
+
+            queries[task] = formatted
+
+        return queries
+
+    async def web_search(self, queries: dict[str, list[str]]):
+        output = {}
+
+        async with httpx.AsyncClient(timeout=10) as client:
+            tasks = []
+            for task, query_list in queries.items():
+                for q in query_list:
+                    tasks.append(self.fetch(client, q))  # FIXED
+
+            results = await asyncio.gather(*tasks)
+
+        for task, query_list in queries.items():
+            task_results = {}
+
+            for q in query_list:
+                html = next(html for query, html in results if query == q)
+                soup = BeautifulSoup(html, "html.parser")
+
+                parsed = []
+                for result in soup.select(".result"):
+                    title = result.select_one(".result__title").get_text(strip=True)
+                    link = result.select_one(".result__a")["href"]
+                    snippet = result.select_one(".result__snippet").get_text(strip=True)
+
+                    parsed.append({
+                        "title": title,
+                        "link": link,
+                        "snippet": snippet
+                    })
+
+                task_results[q] = parsed
+
+            output[task] = task_results
+
+        return output
 
     async def web_search(self, queries: dict[str, list[str]]):
         """Run ALL queries for ALL tasks in parallel."""
