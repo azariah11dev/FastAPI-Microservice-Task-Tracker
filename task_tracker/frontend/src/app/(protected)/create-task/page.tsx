@@ -85,7 +85,7 @@ export default function CreateTask() {
                 <div className="w-full flex justify-center align-center gap-3">
                     <button
                         type="button"
-                        className="mt-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 w-1/2"
+                        className="mt-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 w-1/2 hover:scale-105"
                         onClick={addTask}
                     >
                         Add Task
@@ -93,7 +93,7 @@ export default function CreateTask() {
                     <button
                         type="button"
                         className={`mt-4 py-2 px-1 rounded-md w-1/2 
-                            ${selectedIndex !== null ? "bg-red-500 text-white hover:bg-red-600" : "bg-gray-400 text-gray-200 cursor-not-allowed"}`}
+                            ${selectedIndex !== null ? "bg-red-500 text-white hover:bg-red-800 hover:scale-105" : "bg-gray-400 text-gray-200 cursor-not-allowed"}`}
                         onClick={removeTask}
                         disabled={selectedIndex === null}
                     >
@@ -122,14 +122,14 @@ export default function CreateTask() {
 
                             <div className="flex flex-col gap-3 items-center justify-center">
                                 <button
-                                    className="bg-blue-900 text-white py-2 rounded-md hover:bg-blue-500 w-3/4"
+                                    className="bg-blue-900 text-white py-2 rounded-md hover:bg-blue-500 w-3/4 hover:scale-105"
                                     onClick={() => window.location.href = "/task-management"}
                                 >
                                     Continue
                                 </button>
 
                                 <button
-                                    className="bg-gray-900 py-2 rounded-md hover:bg-gray-500 w-3/4"
+                                    className="bg-gray-900 py-2 rounded-md hover:bg-gray-500 w-3/4 hover:scale-105"
                                     onClick={() => setShowModal(false)}
                                 >
                                     Add More Tasks
@@ -145,7 +145,7 @@ export default function CreateTask() {
                     type="button"
                     id="analyze"
                     disabled={loading}
-                    className="mt-4 bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600"
+                    className="mt-4 bg-emerald-600 text-white py-2 px-4 rounded-md hover:bg-emerald-900 hover:scale-105"
                     onClick={analyzeTasks}
                 >
                     {loading ? "Analyzing..." : "Analyze"}

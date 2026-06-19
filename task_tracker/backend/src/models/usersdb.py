@@ -1,5 +1,4 @@
 from sqlalchemy import Column, String, DateTime, Boolean,Integer
-from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.sql import func
 from models.database import Base
 
