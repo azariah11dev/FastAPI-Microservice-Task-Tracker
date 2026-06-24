@@ -187,15 +187,40 @@ function HistoryCard({
   const handleSave = async () => {
     setSaving(true);
     setSaveStatus("idle");
-    try {
-      const payload = {
-        ...entry,
-        total_estimated_hours: Number(totalHours.toFixed(2)),
-        remaining_estimated_hours: Number(remainingHours.toFixed(2)),
-      };
 
-      // TODO: point this at your real save endpoint once it exists.
-      const response = await fetch("http://localhost:8000//query_builder/save_tasks", {
+    // Ensure required string fields have fallbacks
+    const resolvedName =
+      entry.name?.trim().length > 0 ? entry.name : `Analysis #${index + 1}`;
+
+    const resolvedStatuses: Record<string, string> = entry.statuses || {};
+
+    // Strip `raw` and any extra fields — backend only accepts the three fields in TaskQueryInfo
+    const cleanedAnalysis = {
+      queries: Object.fromEntries(
+        Object.entries(entry.analysis.queries).map(([taskName, details]: [string, any]) => [
+          taskName,
+          {
+            estimated_duration_hours: Number(details.estimated_duration_hours) || 0,
+            confidence_score: Number(details.confidence_score) || 0,
+            requirements: Array.isArray(details.requirements) ? details.requirements : [],
+          },
+        ])
+      ),
+    };
+
+    const payload = {
+      timestamp: entry.timestamp,
+      readable: entry.readable,
+      name: resolvedName,
+      tasks: entry.tasks,
+      analysis: cleanedAnalysis,   // use cleaned version, not entry.analysis
+      statuses: resolvedStatuses,
+      total_estimated_hours: Number(totalHours.toFixed(2)),
+      remaining_estimated_hours: Number(remainingHours.toFixed(2)),
+    };
+
+    try {
+      const response = await fetch("http://localhost:8000/query_builder/save_tasks", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -204,7 +229,7 @@ function HistoryCard({
       if (!response.ok) throw new Error("Save failed");
       setSaveStatus("saved");
     } catch (err) {
-      console.error("Save stub error (expected until backend exists):", err);
+      console.error("Save error:", err, payload);
       setSaveStatus("error");
     } finally {
       setSaving(false);
@@ -270,9 +295,8 @@ function HistoryCard({
                   >
                     <div className="flex justify-between items-start gap-4 flex-wrap">
                       <h4
-                        className={`font-bold ${
-                          status === "completed" ? "line-through opacity-70" : ""
-                        }`}
+                        className={`font-bold ${status === "completed" ? "line-through opacity-70" : ""
+                          }`}
                       >
                         {taskName}
                       </h4>

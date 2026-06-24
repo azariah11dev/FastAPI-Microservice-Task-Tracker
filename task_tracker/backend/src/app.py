@@ -6,6 +6,10 @@ from contextlib import asynccontextmanager
 from models.database import create_db_and_tables
 from endpoints.post_endpoints.user_auth import user_auth_router
 from endpoints.post_endpoints.query_builder import query_router
+from endpoints.get_endpoints.existing_tasks import tasks_router
+from endpoints.get_endpoints.existing_users import available_userRole_router 
+from endpoints.delete_endpoints.task_remover import taskRemover_router
+from endpoints.put_endpoints.role_assignment import user_role_router
 
 
 @asynccontextmanager
@@ -56,3 +60,7 @@ def root():
 
 app.include_router(user_auth_router)
 app.include_router(query_router)
+app.include_router(tasks_router)
+app.include_router(taskRemover_router)
+app.include_router(user_role_router)
+app.include_router(available_userRole_router )

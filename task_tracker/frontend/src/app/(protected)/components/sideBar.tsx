@@ -1,30 +1,39 @@
 "use client";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function SideBar() {
+  const [role, setRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    setRole(localStorage.getItem("role"));
+  }, []);
+  
   return (
     <div className="fixed top-16 left-0 h-[calc(100%-4rem)] w-48 flex flex-col gap-9 font-semibold pt-4 bg-black border-r border-transparent z-40">
       <ul>
         <li className="p-4 hover:text-[#45a29e] cursor-pointer">
-          <Link href="/create-task">
-            Create Task
-          </Link>
+          <Link href="/create-task">Create Task</Link>
         </li>
+
         <li className="p-4 hover:text-[#45a29e] cursor-pointer">
-          <Link href="/task-management">
-            Task Management
-          </Link>
+          <Link href="/task-management">Task Management</Link>
         </li>
+
         <li className="p-4 hover:text-[#45a29e] cursor-pointer">
-          <Link href="/task-history">
-            Task History
-          </Link>
+          <Link href="/task-history">Task History</Link>
         </li>
+
         <li className="p-4 hover:text-[#45a29e] cursor-pointer">
-          <Link href="/remove-tasks">
-            Remove Tasks
-          </Link>
+          <Link href="/analytics">Analytics</Link>
         </li>
+
+        {/* ADMIN ONLY ITEM */}
+        {role?.toLowerCase() === "admin" && (
+          <li className="p-4 hover:text-[#45a29e] cursor-pointer">
+            <Link href="/user-roles">User Roles</Link>
+          </li>
+        )}
       </ul>
     </div>
   );

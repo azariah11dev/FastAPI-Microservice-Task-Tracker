@@ -1,5 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select
 
 from schemas.endpoint_schemas import QueryBuilderRequest, QueryBuilderResponse
 from services.search_model.query import Query
@@ -49,17 +50,38 @@ async def analyze_tasks(payload: QueryBuilderRequest):
 
 @query_router.post("/save_tasks")
 async def save_tasks(
-    data: HistoryEntry, 
+    data: HistoryEntry,
     session: AsyncSession = Depends(get_async_session)
-    ):
-
+):
     try:
+        # 1. Query using async syntax
+        result = await session.execute(
+            select(TaskHistory).where(TaskHistory.timestamp == data.timestamp)
+        )
+        existing = result.scalar_one_or_none()
+
+        if existing:
+            # 2. Update fields
+            existing.readable = data.readable
+            existing.name = data.name
+            existing.tasks = data.tasks
+            existing.analysis = data.analysis.model_dump()
+            existing.statuses = data.statuses
+            existing.total_estimated_hours = data.total_estimated_hours
+            existing.remaining_estimated_hours = data.remaining_estimated_hours
+
+            await session.commit()
+            await session.refresh(existing)
+
+            return {"status": "updated", "id": existing.id}
+
+        # 3. Insert new row
         entry = TaskHistory(
             timestamp=data.timestamp,
             readable=data.readable,
             name=data.name,
             tasks=data.tasks,
-            analysis=data.analysis,
+            analysis=data.analysis.model_dump(),
             statuses=data.statuses,
             total_estimated_hours=data.total_estimated_hours,
             remaining_estimated_hours=data.remaining_estimated_hours
@@ -84,6 +106,7 @@ async def save_tasks(
                 "modified_date": entry.modified_date
             }
         }
-    
+
     except Exception as e:
+        print(f"save_tasks error: {e}")
         raise HTTPException(status_code=500, detail=str(e))

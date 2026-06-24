@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, DateTime, Integer, JSON, Float
+from sqlalchemy import Column, String, DateTime, Integer, JSON, Float, BigInteger
 from sqlalchemy.sql import func
 
 from models.database import Base
@@ -16,7 +16,7 @@ class TaskHistory(Base):
     )
 
     # Your timestamp (epoch ms)
-    timestamp = Column(Integer, nullable=False)
+    timestamp = Column(BigInteger, nullable=False)
 
     # Human-readable timestamp
     readable = Column(String, nullable=False)
