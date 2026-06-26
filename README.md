@@ -57,7 +57,7 @@ TaskForge performs much of that analysis automatically.
 
 - FastAPI
 - SQLAlchemy (Async)
-- PostgreSQL / SQLite
+- PostgreSQL
 - JWT Authentication
 - Pydantic
 
@@ -102,32 +102,120 @@ Authentication            Task Management
 ```text
 TaskForge/
 │
-├── frontend/
-│   ├── src/
-│   ├── public/
-│   └── documents/
-│       └── README.md
-│
 ├── backend/
 │   ├── src/
 │   ├── tests/
 │   └── documents/
 │       └── README.md
 │
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   └── documents/
+│       └── README.md
+│
+├── runApp.ps1
 └── README.md
+```
+
+---
+
+# 🚀 Quick Start
+
+TaskForge includes a PowerShell launcher that starts the complete development environment with a single command.
+
+### Prerequisites
+
+Install the following before running the project:
+
+- Python 3.12+
+- Node.js 20+
+- Docker Desktop
+- **uv** (Python package manager)
+
+Install **uv**:
+
+https://docs.astral.sh/uv/
+
+---
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/azariah11dev/FastAPI-Microservice-Task-Tracker.git
+
+cd FastAPI-Microservice-Task-Tracker/task_tracker
+```
+
+---
+
+### Install Dependencies
+
+Backend
+
+```bash
+cd backend
+
+uv sync
+
+cd ..
+```
+
+Frontend
+
+```bash
+cd frontend
+
+npm install
+
+cd ..
+```
+
+This only needs to be done the first time you set up the project.
+
+---
+
+### Start the Application
+
+From the project root, run:
+
+```powershell
+.\runApp.ps1
+```
+
+The launcher automatically:
+
+- Starts Docker services
+- Launches the FastAPI backend
+- Launches the Next.js frontend
+- Opens the application in your default browser
+
+Once started, the application is available at:
+
+| Service | URL |
+|---------|-----|
+| Frontend | http://localhost:3000 |
+| Backend API | http://localhost:8000 |
+| Swagger UI | http://localhost:8000/docs |
+| ReDoc | http://localhost:8000/redoc |
+
+Stop the application at any time with:
+
+```text
+CTRL + C
 ```
 
 ---
 
 ## 📖 Documentation
 
-Detailed documentation for each application can be found below.
+Detailed implementation documentation is available for each application.
 
 ### Frontend
 
 📄 `frontend/documents/README.md`
 
-Covers:
+Includes:
 
 - UI architecture
 - Next.js App Router
@@ -141,7 +229,7 @@ Covers:
 
 📄 `backend/documents/README.md`
 
-Covers:
+Includes:
 
 - API documentation
 - Authentication
@@ -154,59 +242,27 @@ Covers:
 
 ## 🎥 Demo
 
-A complete walkthrough of the project is available here:
+A complete walkthrough of the project is available here.
 
-**YouTube**
+📺 **YouTube**
 
 > *(Demo link coming soon)*
 
 ---
 
-## 🚀 Getting Started
-
-Clone the repository:
-
-```bash
-git clone https://github.com/azariah11dev/taskforge.git
-```
-
-Start the backend:
-
-```bash
-cd backend
-```
-
-See:
-
-```
-backend/documents/README.md
-```
-
-Start the frontend:
-
-```bash
-cd frontend
-```
-
-See:
-
-```
-frontend/documents/README.md
-```
-
----
-
 ## 🎯 Project Goals
 
-TaskForge was built to demonstrate modern full-stack software engineering practices, including:
+TaskForge was built to demonstrate modern software engineering practices, including:
 
-- AI integration
 - Full-stack application architecture
-- Authentication & authorization
-- Async API development
+- AI integration
+- Asynchronous backend development
+- Authentication and authorization
 - Automated testing
-- Modular software design
-- Scalable project organization
+- REST API design
+- Modular software architecture
+- Containerized development
+- Role-based access control
 
 ---
 
@@ -216,6 +272,6 @@ TaskForge was built to demonstrate modern full-stack software engineering practi
 
 Python • AI • Backend • Full-Stack Development
 
-GitHub
+GitHub:
 
 https://github.com/azariah11dev
