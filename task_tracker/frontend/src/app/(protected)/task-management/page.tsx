@@ -25,9 +25,10 @@ export default function TaskManagement() {
     const local: any[] = JSON.parse(
       localStorage.getItem("analysis_history") || "[]"
     );
+    const sortedLocal = [...local].sort((a, b) => b.timestamp - a.timestamp);
 
     // Show local entries immediately so the page isn't empty while we fetch.
-    setHistory(local);
+    setHistory(sortedLocal);
 
     const loadBackendHistory = async () => {
       try {
@@ -42,7 +43,7 @@ export default function TaskManagement() {
         // Merge by timestamp; backend entries take priority over local
         // duplicates since they represent whatever was actually saved.
         const merged = new Map<number, any>();
-        for (const entry of local) merged.set(entry.timestamp, entry);
+        for (const entry of sortedLocal) merged.set(entry.timestamp, entry);
         for (const entry of backendEntries) merged.set(entry.timestamp, entry);
 
         const mergedList = Array.from(merged.values()).sort(

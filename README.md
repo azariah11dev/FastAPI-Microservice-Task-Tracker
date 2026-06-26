@@ -1,504 +1,221 @@
-# 📘 Smart Task Decomposer
+# 🚀 TaskForge
 
-A full-stack AI-assisted productivity platform that transforms vague goals into structured, actionable work plans.
+> **An AI-powered productivity platform that transforms vague goals into clear, actionable work plans.**
 
-Instead of acting as a simple task tracker, Smart Task Decomposer helps users answer:
+TaskForge helps users answer one simple question:
 
-> **"What exactly do I need to do, how long will it take, and what do I need to get started?"**
+> **"What exactly should I do next?"**
 
-The system combines lightweight local AI models, search-augmented intelligence, and deterministic reasoning to generate practical task breakdowns without relying entirely on large language models.
+Instead of functioning as another task tracker, TaskForge analyzes high-level goals, estimates effort, identifies prerequisites, and generates structured task plans that are easier to execute.
 
----
-
-## 🎥 Demo Video
-
-Watch the project walkthrough:
-
-**YouTube Demo:**  
-[Insert Demo Link Here](https://youtube.com/)
+Built as a full-stack application, TaskForge combines modern web technologies with local AI models to deliver intelligent planning without depending entirely on cloud-based language models.
 
 ---
 
-# 🚀 Overview
+## ✨ Why TaskForge?
 
-Many productivity tools require users to manually estimate:
+Most productivity applications assume users already know how to break down their work.
 
-- Task duration
-- Priority
-- Required resources
-- Work order
+TaskForge focuses on the planning phase.
 
-Smart Task Decomposer automates this process.
+Rather than asking users to manually decide:
 
-Users submit high-level goals such as:
+- Where to start
+- How long a task might take
+- What resources are required
+- Which task should be completed first
 
-```json
-[
-  "Do physics homework",
-  "Read quantum computing paper",
-  "Prepare presentation"
-]
-```
-
-The platform analyzes each goal and returns structured, schedulable tasks enriched with useful metadata.
-
-Example:
-
-```json
-{
-  "name": "Read quantum computing paper",
-  "category": "reading",
-  "estimated_duration_hours": 1.5,
-  "requirements": [
-    "Research paper"
-  ],
-  "priority": 2,
-  "confidence_score": 0.89
-}
-```
+TaskForge performs much of that analysis automatically.
 
 ---
 
-# ✨ Features
+## 🎯 Core Capabilities
 
-## 🧩 AI Task Decomposition
-
-Convert vague goals into structured work items.
-
-Generated information includes:
-
-- Estimated duration
-- Priority ranking
-- Required materials
-- Category classification
-- Confidence score
+- 🤖 AI-assisted task analysis
+- 📋 Intelligent task decomposition
+- ⏱️ Estimated completion times
+- 📈 Priority recommendations
+- 🔍 Search-enhanced task context
+- 🔐 Secure authentication & user management
+- 👥 Role-based administration
+- 📊 Task history and analytics
 
 ---
 
-## 🧠 Lightweight Local AI
+## 🖥️ Technology Stack
 
-Uses small CPU-friendly models such as:
-
-- MiniLM
-- DistilBERT
-- TinyLlama
-
-Capabilities:
-
-- Intent classification
-- Semantic analysis
-- Keyword extraction
-- Task categorization
-
-Designed to run on consumer hardware.
-
----
-
-## 🔍 Search-Augmented Intelligence
-
-The system enriches tasks with real-world information retrieved through search.
-
-Examples:
-
-- Average time required to complete a task
-- Common prerequisites
-- Recommended resources
-- Typical workflows
-
-This improves output quality without requiring expensive large-scale LLM inference.
-
----
-
-## ⚙️ Rule-Based Reasoning Engine
-
-A deterministic reasoning layer combines:
-
-- AI predictions
-- Search results
-- Domain rules
-- Keyword heuristics
-- Fallback defaults
-
-This approach improves consistency, explainability, and testability.
-
----
-
-## 🔐 Authentication
-
-JWT-based authentication supports:
-
-- User registration
-- User login
-- Protected task management endpoints
-
----
-
-## 💾 Task Management
-
-Users can:
-
-- Save generated tasks
-- View previous analyses
-- Delete completed tasks
-- Manage personal work plans
-
----
-
-# 🧠 How It Works
-
-## Step 1: User Submits Goals
-
-Example:
-
-```json
-[
-  "Do physics homework",
-  "Read quantum computing paper"
-]
-```
-
----
-
-## Step 2: AI Classification
-
-A lightweight local model analyzes each task and predicts:
-
-- Category
-- Intent
-- Keywords
-- Similarity patterns
-
-Example categories:
-
-- Homework
-- Reading
-- Research
-- Presentation
-- Writing
-
----
-
-## Step 3: Search Enrichment
-
-Relevant information is retrieved to estimate:
-
-- Completion time
-- Materials needed
-- Common approaches
-
-Example:
-
-```text
-average time to read a research paper
-materials needed for a presentation
-```
-
----
-
-## Step 4: Rule-Based Reasoning
-
-The reasoning engine combines:
-
-- Model predictions
-- Search insights
-- Keyword heuristics
-- Default business rules
-
----
-
-## Step 5: Structured Task Output
-
-Example:
-
-```json
-{
-  "tasks": [
-    {
-      "name": "Read quantum computing paper",
-      "category": "reading",
-      "estimated_duration_hours": 1.5,
-      "requirements": [
-        "Research paper"
-      ],
-      "priority": 2,
-      "confidence_score": 0.89
-    }
-  ]
-}
-```
-
----
-
-# 🖥️ System Architecture
-
-```text
-User
- │
- ▼
-Next.js Frontend
- │
- ├── Authentication UI
- ├── Task Management UI
- ├── Admin Dashboard (Admin Only)
- │
- ▼
-FastAPI Backend
- │
- ├── Authentication Layer
- ├── Task Service
- ├── User Role Service (RBAC)
- ├── Tiny AI Model
- ├── Search Service
- └── Rule Engine
- │
- ▼
-PostgreSQL
-
-```
-
----
-
-# 📡 API Endpoints
-
-## Authentication
-
-### Register
-
-```http
-POST /auth/register
-```
-
-### Login
-
-```http
-POST /auth/login
-```
-
----
-
-## Task Processing
-
-### Convert Tasks
-
-```http
-POST /tasks/convert
-```
-
-Converts raw goals into structured task plans.
-
----
-
-### Save Tasks
-
-```http
-POST /tasks/save
-```
-
-Stores generated tasks.
-
----
-
-### Retrieve Tasks
-
-```http
-GET /tasks
-```
-
-Returns saved tasks.
-
----
-
-### Delete Task
-
-```http
-DELETE /tasks/{id}
-```
-
-Removes a task.
-
----
-
-# 🔧 Technology Stack
-
-## Frontend
+### Frontend
 
 - Next.js
 - React
-- TailwindCSS
-- JWT Authentication
-- React Query (optional)
+- TypeScript
+- Tailwind CSS
+- Jest
+- Playwright
 
----
-
-## Backend
+### Backend
 
 - FastAPI
-- Pydantic
-- SQLite / PostgreSQL
+- SQLAlchemy (Async)
+- PostgreSQL / SQLite
 - JWT Authentication
+- Pydantic
+
+### AI
+
+- Ollama
+- Lightweight Local LLMs
+- Semantic Search
+- Rule-Based Reasoning
 
 ---
 
-## AI Components
+## 🏛️ System Architecture
 
-- MiniLM
-- DistilBERT
-- TinyLlama
-- Local CPU Inference
-- Semantic Similarity
-
----
-
-## Testing
-
-- Pytest
-- API Integration Tests
-- Rule Engine Tests
-- Search Service Mocks
-- Model Inference Tests
-
----
-
-# 🧪 Testing
-
-Run backend tests:
-
-```bash
-pytest
+```text
+                 User
+                   │
+                   ▼
+        Next.js Frontend (React)
+                   │
+      ┌────────────┴────────────┐
+      │                         │
+Authentication            Task Management
+      │                         │
+      └────────────┬────────────┘
+                   ▼
+            FastAPI Backend
+                   │
+     ┌─────────────┼─────────────┐
+     │             │             │
+ Authentication   AI Engine   Task Services
+     │             │             │
+     └─────────────┼─────────────┘
+                   ▼
+              PostgreSQL
 ```
 
-Testing includes:
+---
 
-- Authentication flows
-- Task generation logic
-- Rule engine validation
-- Search integration
-- API endpoints
-- Model inference
+# 📂 Repository Structure
+
+```text
+TaskForge/
+│
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   └── documents/
+│       └── README.md
+│
+├── backend/
+│   ├── src/
+│   ├── tests/
+│   └── documents/
+│       └── README.md
+│
+└── README.md
+```
 
 ---
 
-# ⚙️ Installation
+## 📖 Documentation
 
-## Backend
+Detailed documentation for each application can be found below.
+
+### Frontend
+
+📄 `frontend/documents/README.md`
+
+Covers:
+
+- UI architecture
+- Next.js App Router
+- Authentication
+- Testing
+- Developer workflow
+
+---
+
+### Backend
+
+📄 `backend/documents/README.md`
+
+Covers:
+
+- API documentation
+- Authentication
+- AI pipeline
+- Database models
+- Testing
+- Deployment
+
+---
+
+## 🎥 Demo
+
+A complete walkthrough of the project is available here:
+
+**YouTube**
+
+> *(Demo link coming soon)*
+
+---
+
+## 🚀 Getting Started
+
+Clone the repository:
+
+```bash
+git clone https://github.com/azariah11dev/taskforge.git
+```
+
+Start the backend:
 
 ```bash
 cd backend
-
-pip install -r requirements.txt
-
-uvicorn main:app --reload
 ```
 
----
+See:
 
-## Frontend
+```
+backend/documents/README.md
+```
+
+Start the frontend:
 
 ```bash
 cd frontend
+```
 
-npm install
+See:
 
-npm run dev
+```
+frontend/documents/README.md
 ```
 
 ---
 
-# 🔐 Authentication
+## 🎯 Project Goals
 
-JWT-based authentication is used throughout the application.
+TaskForge was built to demonstrate modern full-stack software engineering practices, including:
 
-Workflow:
-
-1. Register account
-2. Login
-3. Receive access token
-4. Access protected endpoints
-
-Supported storage options:
-
-- HTTP-only cookies
-- Local storage
-
----
-
-# 🎯 Example Use Cases
-
-Smart Task Decomposer can be used for:
-
-- Student workload planning
-- Research task organization
-- Personal productivity systems
-- Academic project management
-- Study planning
-- Professional work scheduling
-- Goal decomposition and planning
-
----
-
-# 💼 Business Value
-
-Most productivity tools focus on tracking tasks after they have already been defined.
-
-Smart Task Decomposer focuses on an earlier and often more difficult problem:
-
-> Turning vague goals into actionable plans.
-
-By combining AI-assisted decomposition with deterministic reasoning, the platform helps users:
-
-- Estimate workload more accurately
-- Reduce planning friction
-- Identify required resources
-- Prioritize work effectively
-- Create realistic schedules
-
----
-
-# 🚧 Future Improvements
-
-- Calendar integration
-- Critical path analysis
-- Team collaboration features
-- Dependency graph visualization
-- LLM-assisted task generation
-- RAG-powered knowledge retrieval
-- Multi-project planning
-- Productivity analytics dashboard
-
----
-
-# 📈 Skills Demonstrated
-
-This project showcases:
-
-- Full-stack development
-- FastAPI architecture
-- Next.js development
-- JWT authentication
 - AI integration
-- Search-augmented systems
-- Rule-based reasoning
-- Database design
-- API development
-- System architecture
-- Software testing
+- Full-stack application architecture
+- Authentication & authorization
+- Async API development
+- Automated testing
+- Modular software design
+- Scalable project organization
 
 ---
 
-# 👨‍💻 Author
+## 👨‍💻 Author
 
-## CodeArcade
+**CodeArcade**
 
-Python Automation • AI Systems • Backend Development • Data Engineering
+Python • AI • Backend • Full-Stack Development
 
-Available for freelance projects involving:
+GitHub
 
-- AI Applications
-- Automation Systems
-- Backend APIs
-- Productivity Software
-- Data Engineering
-- Full-Stack Development
-
-GitHub:  
 https://github.com/azariah11dev

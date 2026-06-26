@@ -27,6 +27,7 @@ export default function TopBar() {
   const timeString = now?.toLocaleTimeString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
+    hour12: false,
   });
 
   const logoutBtn = () => {
@@ -34,7 +35,7 @@ export default function TopBar() {
     localStorage.removeItem("role");
     localStorage.removeItem("access_token");
     localStorage.removeItem("analysis_history");
-    window.location.href = "/login";
+    window.location.assign("/login");
   };
 
   return (
@@ -68,12 +69,16 @@ export default function TopBar() {
         </li>
 
         <li>
-          <button
+          <Link
+            href="/login"
             className="text-[#c5c6c7] hover:text-[#45a29e] transition-colors"
-            onClick={logoutBtn}
+            onClick={(event) => {
+              event.preventDefault();
+              logoutBtn();
+            }}
           >
             Logout
-          </button>
+          </Link>
         </li>
       </ul>
     </nav>

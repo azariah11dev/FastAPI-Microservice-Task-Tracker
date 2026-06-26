@@ -7,7 +7,7 @@ export default function Dashboard() {
   const [username, setUsername] = useState<string | null>(null);
 
   useEffect(() => {
-    setUsername(localStorage.getItem("username"));
+    setUsername(window.localStorage.getItem("username"));
   }, []);
 
   return (
