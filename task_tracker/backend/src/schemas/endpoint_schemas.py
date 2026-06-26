@@ -10,6 +10,7 @@ class TaskInfo(BaseModel):
     requirements: List[str] = []
     confidence_score: float = 0.0
     raw: Optional[str] = None
+    priority: int | None = None
 
 class QueryBuilderRequest(BaseModel):
     tasks: List[str]
@@ -39,3 +40,13 @@ class HistoryEntry(BaseModel):
     statuses: Dict[str, str]
     total_estimated_hours: float
     remaining_estimated_hours: float
+
+
+# ------------------------------------------------
+# Schemas for contacts endpoint
+# ------------------------------------------------
+
+class ContactInfo(BaseModel):
+    name: str
+    email: str
+    message: str

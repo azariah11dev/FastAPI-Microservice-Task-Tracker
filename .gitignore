@@ -69,7 +69,7 @@ env/
 # -------------------------
 # Testing
 # -------------------------
-pytest_cache/
+.pytest_cache/
 .coverage
 htmlcov/
 

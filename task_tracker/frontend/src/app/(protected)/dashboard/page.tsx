@@ -48,12 +48,14 @@ export default function Dashboard() {
             </p>
           </Link>
 
-          <div className="bg-[#1f2833] border border-[#45a29e] rounded-xl p-6 opacity-50 cursor-not-allowed shadow-lg">
-            <h2 className="text-xl font-bold text-[#66fcf1] mb-2">Analytics (Coming Soon)</h2>
+          <Link
+            href="/analytics"
+            className="bg-[#1f2833] border border-[#45a29e] rounded-xl p-6 hover:bg-[#162025] transition-colors shadow-lg">
+            <h2 className="text-xl font-bold text-[#66fcf1] mb-2">Analytics</h2>
             <p className="text-sm text-[#c5c6c7]">
               Visual insights into your productivity patterns.
             </p>
-          </div>
+          </Link>
 
         </div>
 

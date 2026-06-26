@@ -5,6 +5,7 @@ from models.database import Base
 
 class TaskHistory(Base):
     __tablename__ = "task_history"
+    __table_args__ = {"extend_existing": True}
 
     id = Column(Integer, primary_key=True, index=True)
 

@@ -7,8 +7,8 @@ ENTER POSTGRES (Docker)
 ----------------------------------------
 docker exec -it <container_name> psql -U postgres -d <database_name>
 
-Example:
-docker exec -it TraceSureDB_Postgres psql -U postgres -d TaskForgeDB
+use:
+docker exec -it TaskForgeDB_Postgres psql -U postgres -d TaskForgeDB
 
 
 EXIT POSTGRES

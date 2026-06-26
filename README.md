@@ -237,17 +237,23 @@ User
  ▼
 Next.js Frontend
  │
+ ├── Authentication UI
+ ├── Task Management UI
+ ├── Admin Dashboard (Admin Only)
+ │
  ▼
 FastAPI Backend
  │
  ├── Authentication Layer
  ├── Task Service
+ ├── User Role Service (RBAC)
  ├── Tiny AI Model
  ├── Search Service
  └── Rule Engine
  │
  ▼
-SQLite / PostgreSQL
+PostgreSQL
+
 ```
 
 ---
@@ -309,34 +315,6 @@ DELETE /tasks/{id}
 ```
 
 Removes a task.
-
----
-
-# 🏗️ Project Structure
-
-```text
-smart-task-decomposer/
-│
-├── backend/
-│   ├── app/
-│   │   ├── api/
-│   │   ├── auth/
-│   │   ├── models/
-│   │   ├── services/
-│   │   ├── search/
-│   │   ├── rules/
-│   │   └── tiny_model/
-│   ├── main.py
-│   └── requirements.txt
-│
-├── frontend/
-│   ├── app/
-│   ├── components/
-│   ├── pages/
-│   └── package.json
-│
-└── README.md
-```
 
 ---
 

@@ -23,7 +23,7 @@ export default function ContactPage() {
 
     try {
       // TODO: Replace with your FastAPI endpoint
-      const res = await fetch("http://localhost:8000/contact", {
+      const res = await fetch("http://localhost:8000/contact/all_questions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
