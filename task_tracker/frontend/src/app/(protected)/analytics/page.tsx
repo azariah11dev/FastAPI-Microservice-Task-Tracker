@@ -11,7 +11,7 @@ export default function AnalyticsPage() {
     const loadHistory = async () => {
       try {
         const response = await fetch(
-            "http://localhost:8000/task_retrieval/completed_tasks"
+            "http://localhost:8000/task_retrieval/analytics"
         );
 
         if (!response.ok) throw new Error("Fetch failed");

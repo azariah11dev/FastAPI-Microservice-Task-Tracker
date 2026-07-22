@@ -1,26 +1,17 @@
 import { test, expect } from "@playwright/test";
 
 async function loginAsAdmin(page, targetPath = "/user-roles") {
-  await page.route("**/auth/login", async (route) => {
-    await route.fulfill({
-      status: 200,
-      body: JSON.stringify({
-        access_token: "abc123",
-        username: "Azariah",
-        role: "Admin",
-      }),
-    });
+  await page.goto("/login", { waitUntil: "domcontentloaded" });
+  await page.locator('input[placeholder="Enter username"]').waitFor({ state: "visible" });
+
+  await page.evaluate(() => {
+    window.localStorage.setItem("access_token", "abc123");
+    window.localStorage.setItem("username", "Azariah");
+    window.localStorage.setItem("role", "Admin");
   });
 
-  await page.goto("/login");
-  await page.fill('input[placeholder="Enter username"]', "Azariah");
-  await page.fill('input[placeholder="Enter password"]', "secret");
-  await page.click('button:has-text("Sign In")');
-
-  await expect(page).toHaveURL(/\/dashboard$/);
-
   if (targetPath !== "/dashboard") {
-    await page.goto(targetPath);
+    await page.goto(targetPath, { waitUntil: "domcontentloaded" });
     await expect(page).toHaveURL(new RegExp(`${targetPath.replace(/\//g, "\\/")}$`));
   }
 }

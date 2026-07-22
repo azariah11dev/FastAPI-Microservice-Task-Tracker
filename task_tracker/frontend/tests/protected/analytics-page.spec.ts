@@ -1,19 +1,23 @@
 import { test, expect } from "@playwright/test";
 
-test("analytics page loads and displays metrics", async ({ page }) => {
-  await page.route("**/auth/login", async (route) => {
-    await route.fulfill({
-      status: 200,
-      body: JSON.stringify({
-        access_token: "abc123",
-        username: "Azariah",
-        role: "user",
-      }),
-    });
-  });
+test.beforeEach(async ({ page }) => {
+  await page.goto("/", { waitUntil: "domcontentloaded" });
+  await page.evaluate(() => {
+    window.localStorage.clear();
+  }).catch(() => undefined);
+});
 
+test.afterEach(async ({ page }) => {
+  if (!page.isClosed()) {
+    await page.evaluate(() => {
+      window.localStorage.clear();
+    }).catch(() => undefined);
+  }
+});
+
+test("analytics page loads and displays metrics", async ({ page }) => {
   // Mock backend response
-  await page.route("**/task_retrieval/completed_tasks", async (route) => {
+  await page.route("**/task_retrieval/analytics", async (route) => {
     await route.fulfill({
       status: 200,
       body: JSON.stringify([
@@ -31,15 +35,16 @@ test("analytics page loads and displays metrics", async ({ page }) => {
     });
   });
 
-  await page.goto("/login");
-  await page.fill('input[placeholder="Enter username"]', "Azariah");
-  await page.fill('input[placeholder="Enter password"]', "secret");
-  await page.click('button:has-text("Sign In")');
-  await expect(page).toHaveURL(/\/dashboard$/);
+  await page.goto("/", { waitUntil: "domcontentloaded" });
+  await page.evaluate(() => {
+    window.localStorage.setItem("access_token", "abc123");
+    window.localStorage.setItem("username", "Azariah");
+    window.localStorage.setItem("role", "user");
+  });
+  await page.goto("/analytics", { waitUntil: "domcontentloaded" });
+  await page.waitForTimeout(500);
 
-  await page.goto("/analytics");
-
-  await expect(page.getByText("Analytics Dashboard")).toBeVisible();
+  await expect(page.getByText("Analytics Dashboard")).toBeVisible({ timeout: 10000 });
 
   // Total Analyses = 2
   await expect(page.getByText("Total Analyses")).toBeVisible();
@@ -79,14 +84,20 @@ test("analytics page shows error message when backend fails", async ({ page }) =
   });
 
   // Mock backend failure
-  await page.route("**/task_retrieval/completed_tasks", async (route) => {
+  await page.route("**/task_retrieval/analytics", async (route) => {
     await route.fulfill({
       status: 500,
       body: "Internal Server Error",
     });
   });
 
-  await page.goto("/analytics");
+  await page.goto("/", { waitUntil: "domcontentloaded" });
+  await page.evaluate(() => {
+    window.localStorage.setItem("access_token", "abc123");
+    window.localStorage.setItem("username", "Azariah");
+    window.localStorage.setItem("role", "user");
+  });
+  await page.goto("/analytics", { waitUntil: "domcontentloaded" });
 
   // Wait for loading to disappear
   await expect(

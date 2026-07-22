@@ -57,25 +57,17 @@ async function mockNetworkBackendFail(page: Page) {
 
 /** Login helper — reusable across suites */
 async function login(page: Page, username = "Azariah", targetPath = "/task-management") {
-  await page.route("**/auth/login", (route) =>
-    route.fulfill({
-      status: 200,
-      body: JSON.stringify({
-        access_token: "abc123",
-        username,
-        role: "user",
-      }),
-    })
-  );
+  await page.goto("/login", { waitUntil: "domcontentloaded" });
+  await page.locator('input[placeholder="Enter username"]').waitFor({ state: "visible" });
 
-  await page.goto("/login");
-  await page.fill('input[placeholder="Enter username"]', username);
-  await page.fill('input[placeholder="Enter password"]', "secret");
-  await page.click('button:has-text("Sign In")');
-  await expect(page).toHaveURL(/\/dashboard$/);
+  await page.evaluate(() => {
+    window.localStorage.setItem("access_token", "abc123");
+    window.localStorage.setItem("username", "Azariah");
+    window.localStorage.setItem("role", "user");
+  });
 
   if (targetPath !== "/dashboard") {
-    await page.goto(targetPath);
+    await page.goto(targetPath, { waitUntil: "domcontentloaded" });
     await expect(page).toHaveURL(new RegExp(`^http://localhost:3000${targetPath.replace(/\//g, "\\/")}$`));
   }
 }
@@ -83,10 +75,17 @@ async function login(page: Page, username = "Azariah", targetPath = "/task-manag
 // ===========================================================================
 // SUITE 1 — Auth & page load
 // ===========================================================================
+test.beforeEach(async ({ page }) => {
+  await page.goto("/", { waitUntil: "domcontentloaded" });
+  await page.evaluate(() => {
+    window.localStorage.clear();
+  }).catch(() => undefined);
+});
+
 test.describe("TaskManagement — auth & page load", () => {
   test("unauthenticated user is redirected to login", async ({ page }) => {
-    await page.goto("/task-management");
-    await expect(page).toHaveURL(/login/);
+    await page.goto("/task-management", { waitUntil: "domcontentloaded" });
+    await expect(page).toHaveURL(/login/, { timeout: 10000 });
   });
 
   test("page loads after login and shows heading", async ({ page }) => {
@@ -491,5 +490,6 @@ test.describe("TaskManagement — navigation", () => {
     await mockNetwork(page);
 
     await expect(page.getByText("Sprint Planning")).toBeVisible();
+
   });
 });

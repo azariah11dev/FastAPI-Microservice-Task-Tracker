@@ -17,7 +17,7 @@ export default function DemoPage() {
       <div className="w-full max-w-4xl aspect-video rounded-xl overflow-hidden shadow-lg border border-gray-900">
         <iframe
           className="w-full h-full"
-          src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+          src="https://youtu.be/GeR2AkUbvpk"
           title="Task Forge Demo Video"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen

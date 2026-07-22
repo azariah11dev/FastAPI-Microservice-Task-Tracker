@@ -246,7 +246,7 @@ A complete walkthrough of the project is available here.
 
 📺 **YouTube**
 
-> *(Demo link coming soon)*
+https://youtu.be/GeR2AkUbvpk
 
 ---
 

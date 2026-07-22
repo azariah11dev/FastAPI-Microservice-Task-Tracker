@@ -41,7 +41,9 @@ export default function UserRolesPage() {
         `http://localhost:8000/user_role/assign_role?username=${username}&role=${newRole}`,
         {
           method: "PUT",
-          credentials: "include"
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`
+          }
         }
       );
 
