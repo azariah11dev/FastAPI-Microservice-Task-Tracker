@@ -2,6 +2,8 @@
 import sys
 import os
 
+os.environ.setdefault("DATABASE_URL", "sqlite:///./test.db")
+
 # backend/
 backend_dir = os.path.dirname(os.path.abspath(__file__))  # tests/
 backend_dir = os.path.dirname(backend_dir)                # backend/
