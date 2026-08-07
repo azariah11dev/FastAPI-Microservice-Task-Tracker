@@ -23,6 +23,8 @@ jobs:
         run: uv sync --dev
 
       - name: Run backend tests
+        env:
+          DATABASE_URL: sqlite+aiosqlite:///:memory
         working-directory: task_tracker/backend
         run: uv run pytest
 
