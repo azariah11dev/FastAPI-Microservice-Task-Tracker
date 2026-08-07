@@ -10,7 +10,7 @@ print(f"Loading .env from: {_env_path / '.env'}")  # remove after confirming
 
 class Settings(BaseSettings):
     DATABASE_URL: Optional[str] = None
-    SERPER_API_KEY: str
+    SERPER_API_KEY: str | None = None
 
     class Config:
         env_file = str(_env_path / ".env")
