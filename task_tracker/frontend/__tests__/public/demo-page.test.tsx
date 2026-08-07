@@ -21,7 +21,7 @@ describe("Demo Page", () => {
     expect(iframe).toBeInTheDocument();
     expect(iframe).toHaveAttribute(
       "src",
-      "https://www.youtube.com/embed/YOUR_VIDEO_ID"
+      "https://youtu.be/GeR2AkUbvpk"
     );
   });
 

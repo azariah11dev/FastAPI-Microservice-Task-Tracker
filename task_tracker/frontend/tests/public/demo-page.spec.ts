@@ -20,6 +20,6 @@ test("iframe has correct YouTube embed URL", async ({ page }) => {
   const iframe = page.locator('iframe[title="Task Forge Demo Video"]');
   await expect(iframe).toHaveAttribute(
     "src",
-    "https://www.youtube.com/embed/YOUR_VIDEO_ID"
+    "https://youtu.be/GeR2AkUbvpk"
   );
 });

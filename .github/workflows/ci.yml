@@ -20,7 +20,7 @@ jobs:
 
       - name: Install backend dependencies
         working-directory: task_tracker/backend
-        run: uv sync
+        run: uv sync --dev
 
       - name: Run backend tests
         working-directory: task_tracker/backend
