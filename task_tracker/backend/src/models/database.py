@@ -1,4 +1,4 @@
-from sqlalchemy.ext.asyncio import create_async_engine
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 from sqlalchemy.orm import DeclarativeBase
 import os
 
@@ -6,12 +6,10 @@ from schemas.model_schemas import settings
 
 DATABASE_URL = settings.DATABASE_URL or os.getenv("DATABASE_URL")
 
-def get_engine():
-    if DATABASE_URL is None:
-        raise RuntimeError("DATABASE_URL is required for database operations")
-    return create_async_engine(DATABASE_URL, echo=True)
+if not DATABASE_URL:
+    raise RuntimeError("DATABASE_URL is not set in environment or .env file")
 
-engine = get_engine()
+engine = create_async_engine(DATABASE_URL, echo=True)
 
 class Base(DeclarativeBase):
     pass
