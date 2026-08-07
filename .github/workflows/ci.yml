@@ -19,11 +19,11 @@ jobs:
         run: pip install uv
 
       - name: Install backend dependencies
-        working-directory: backend
+        working-directory: task_tracker/backend
         run: uv sync
 
       - name: Run backend tests
-        working-directory: backend
+        working-directory: task_tracker/backend
         run: pytest
 
   frontend-tests:
@@ -37,11 +37,11 @@ jobs:
           node-version: "20"
 
       - name: Install frontend dependencies
-        working-directory: frontend
+        working-directory: task_tracker/frontend
         run: npm install
 
       - name: Run frontend tests
-        working-directory: frontend
+        working-directory: task_tracker/frontend
         run: npm test
 
   playwright-tests:
@@ -55,15 +55,15 @@ jobs:
           node-version: "20"
 
       - name: Install frontend dependencies
-        working-directory: frontend
+        working-directory: task_tracker/frontend
         run: npm install
 
       - name: Install Playwright browsers
-        working-directory: frontend
+        working-directory: task_tracker/frontend
         run: npx playwright install --with-deps
 
       - name: Run Playwright tests
-        working-directory: frontend
+        working-directory: task_tracker/frontend
         run: npx playwright test
 
   docker-build:
@@ -72,4 +72,4 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Build Docker images
-        run: docker build -t taskforge-backend ./backend
+        run: docker build -t taskforge-backend ./task_tracker/backend
